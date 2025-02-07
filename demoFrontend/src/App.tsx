@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [pokemon, setPokemon] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get<{ pokemon: string }>("http://localhost:3000/pokemon")
+      .then((response) => setPokemon(response.data.pokemon))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
   return (
     <>
@@ -18,16 +26,9 @@ function App() {
       </div>
       <h1>Laraa + Sorg</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          total people: {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <h2>Pokemon API:</h2>
+        <p>{pokemon}</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
