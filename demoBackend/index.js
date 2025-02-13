@@ -35,15 +35,6 @@ app.get('/pokemon', (req, res) => {
     });
 });
 
-app.get('/tipopokemon', (req, res) => {    
-    const sql = 'SELECT * FROM `tipopokemon`';
-    db.query(sql, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)      
-    });
-});
-
-
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
