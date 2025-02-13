@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import axios from "axios";
 import "./App.css";
+import "./assets/buttons.css";
 
 interface Pokemon {
   id_pokemon: number;
@@ -32,11 +33,11 @@ function App() {
       <h1>Laraa + Sorg</h1>
       <div className="card">
         <h2>Pokemon API:</h2>
-        <ul>
-          {pokemon.map((p) => (
-            <li key={p.id_pokemon}>{p.nombre}</li>
-          ))}
-        </ul>
+        {pokemon.map((p) => (
+          <button className="button" key={p.nombre}>
+            {p.nombre}
+          </button>
+        ))}
       </div>
     </>
   );
