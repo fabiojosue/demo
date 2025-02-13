@@ -4,14 +4,19 @@ import viteLogo from "/vite.svg";
 import axios from "axios";
 import "./App.css";
 
+interface Pokemon {
+  id_pokemon: number;
+  nombre: string;
+}
+
 function App() {
-  const [pokemon, setPokemon] = useState<string>("");
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     axios
-      .get<{ pokemon: string }>("http://localhost:3000/pokemon")
-      .then((response) => setPokemon(response.data.pokemon))
-      .catch((error) => console.error("Error fetching data:", error));
+      .get<Pokemon[]>("http://localhost:3000/pokemon")
+      .then((response) => setPokemon(response.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -27,7 +32,11 @@ function App() {
       <h1>Laraa + Sorg</h1>
       <div className="card">
         <h2>Pokemon API:</h2>
-        <p>{pokemon}</p>
+        <ul>
+          {pokemon.map((p) => (
+            <li key={p.id_pokemon}>{p.nombre}</li>
+          ))}
+        </ul>
       </div>
     </>
   );
